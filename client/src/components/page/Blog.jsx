@@ -1,17 +1,18 @@
-import React, {useState, useEffect} from 'react'
-import BlogPost from '../blog/BlogPost'
+import React, {useState, useEffect} from 'react';
+import BlogPost from '../blog/BlogPost';
 import axios from "axios";
+import Layout from "../layout/Layout";
 
-let test = [1,2,3];
 
 function Blog() {
-    var [blogPosts, setBlogs] = useState([{}]);
+    var [blogPost, setBlogs] = useState([{}]);
 
     async function onLoad(){
         try{
-            const result = await axios.get("/blog/1");
-           {console.log(result.data.key)}
-           // alert(result.data);
+            const result = await axios.get("/blog");
+            const blog = result.data;
+           {console.log(result.data)}
+           setBlogs(result.data);
             }
             catch (err){
                 console.log(err);
@@ -20,13 +21,31 @@ function Blog() {
 
     useEffect(()=>{
         onLoad();
-    })
+    }, [])
+
+    async function handleDelete(curId){
+        try{
+        //{console.log(curId)}
+        
+        await axios.delete(`/blog/${curId}/delete`).then(
+            setBlogs (blogPost.filter(blog => blog._id !== curId))
+            );
+        }
+        catch(err){
+            {console.log(err)}
+        }
+    }
+
+
 
   return (
     <div>
-        {test.map(()=>{
-            return(<BlogPost />)
+        <Layout>
+        {blogPost.map((blog, index)=>{
+          
+            return(<BlogPost key={index} value = {blog} onDelete = {handleDelete}/>)
         })}
+        </Layout>
 
     </div>
   )

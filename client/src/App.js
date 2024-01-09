@@ -1,6 +1,7 @@
 import React from "react";
 import Landing from "./components/page/Landing.jsx";
 import Blog from "./components/page/Blog.jsx";
+import NewBlog from "./components/page/NewBlog.jsx";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import axios from "axios";
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route index element = {<Landing />} />
           <Route path="/blog" element={<Blog/>} />
+          <Route path="/blog/new" element={<NewBlog/>} />
           {/*<Route path = "*" element = {noPage}/>*/}
             
     </Routes>
