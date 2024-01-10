@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Header() {
+  let navigate = useNavigate();
+
   return (
     <div>
         <div class="container">
@@ -15,8 +18,7 @@ function Header() {
      
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-primary" style = {{fontSize:"18px", borderRadius:"9px", width: "95px"}} onClick = {()=>{navigate("/authenticate")}}>Login</button>
       </div>
     </header>
   </div>
