@@ -9,10 +9,11 @@ import bodyParser from "body-parser";
 import { userInfo } from "os";
 import { error } from "console";
 
-
 const pwd = process.env.MONGO_PWD;
+const uri = `mongodb+srv://yamenmoh250:${pwd}@portfoliodb.50nadqe.mongodb.net/?retryWrites=true&w=majority`;
+
 mongoose.set('strictQuery', false);
-await mongoose.connect(`mongodb+srv://yamenmoh250:${pwd}@portfoliodb.50nadqe.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(uri).then(console.log("Connected")).catch( (err)=>console.log("error connecting to database"));
 
 
 
@@ -33,8 +34,44 @@ app.get("/blog", async (req,res) => {
 });
 
 
+app.get("/blog/:id", async (req,res)=>{
+    try{
+        
+        const curId = req.params.id;
+        const currentBlog = await Blog.findById(curId);
+        //console.log(currentBlog)
+        //res.status().json(currentBlog);
+        res.send(currentBlog);
+    }
+    catch(err){
+        
+    } //send json
+});
+
+
+
+app.patch("/blog/edit/:id", async(req,res)=>{
+    const curId = req.params.id;
+    console.log(req.params);
+    const data = req.body;
+    console.log("this is a patch");
+    try{
+       // console.log(curId);
+        await Blog.findByIdAndUpdate(curId, {title: data.title, content: data.content});
+        // CONFIRM BLOG CREATION AND DELETION
+        
+        console.log("patched");
+    }
+    catch(err){
+        res.sendStatus(500);
+    }
+});
+
+
+
 app.post("/blog/create", async (req, res)=>{
     try{
+        console.log("this is a post");
     const newPost = new Blog(req.body);
     await newPost.save();
     res.status(201).json(newPost);
@@ -48,7 +85,7 @@ app.post("/blog/create", async (req, res)=>{
 
 app.delete("/blog/:id/delete", async (req,res)=>{
     const idToDelete = req.params.id;
-    console.log(req.params.id);
+    //console.log(req.params.id);
 
     await Blog.deleteOne({ _id: idToDelete});    
    

@@ -8,13 +8,78 @@
 --main-red: #bd150b ;
 --main-red-rgb-015: rgba(189, 21, 11, 0.1) ;
 --main-blue: #0076bd ;
---main-blue-rgb-015: rgba(0, 118, 189, 0.1) ;
+--main-blue-rgb-015: rgba(40, 75, 99, 0.1) ;
 }
 
 
+.blogCreate{
+  body{
+    background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+  }
+  .contact-form{
+    margin-top: 10%;
+    margin-bottom:4%;
+    width: 70%;
+  }
+  .contact-form .form-control{
+    border-radius:1rem;
+    margin-top: 1%;
+    background-color: #eceaeac4;
+  }
+  .contact-image{
+    text-align: center;
+  }
+
+  .contact-form form{
+    padding: 14%;
+  }
+  .contact-form form .row{
+    margin-bottom: -7%;
+  }
+  .contact-form h3{
+    margin-bottom: 8%;
+    margin-top: -18%;
+    text-align: center;
+    color: var(--main-blue);
+  }
+  .contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #3C6E71;
+    font-weight: 600;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .btnContactSubmit
+  {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.headerButton{
+  margin-top: 35px;
+  height: 50px;
+}
+
+.blogHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .blogPost{
-/* This pen */
+
+
+
 body {
 	font-family: "Baloo 2", cursive;
 	font-size: 16px;
@@ -23,6 +88,10 @@ body {
 	font-weight: initial;
 }
 
+
+
+
+
 .dark {
 	background: #110f16;
 }
@@ -30,6 +99,8 @@ body {
 
 .light {
 	background: #f3f5f7;
+  background: #fff;
+  
 }
 
 a, a:hover {
@@ -272,7 +343,7 @@ a, a:hover {
 	color: --main-blue;
 }
 .blue .postcard__bar {
-	background-color: --main-blue;
+	background-color: #3C6E71;
 }
 .blue::before {
 	background-image: linear-gradient(-30deg, --main-blue-rgb-015, transparent 50%);
@@ -371,4 +442,14 @@ a, a:hover {
 		);
 	}
 }
+
+
+
+}
+
+.position-L{
+  flex-direction: row !important;
+}
+.position-R{
+  flex-direction: row-reverse !important;
 }
