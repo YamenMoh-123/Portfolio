@@ -33,6 +33,20 @@ app.get("/blog", async (req,res) => {
     }
 });
 
+app.get("/blog/all", async (req,res)=>{
+
+    try{
+         const result = await Blog.countDocuments()
+         const data = {postCount: result};
+        res.json(data);
+       
+        
+    }
+    catch(err){
+
+    }
+});
+
 
 app.get("/blog/:id", async (req,res)=>{
     try{

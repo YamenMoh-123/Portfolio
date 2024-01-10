@@ -2,10 +2,27 @@
 
 import React from 'react'
 import "./blogStyle.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"
+
 
 
 
 function BlogCreate(props) {
+
+    const modules = {
+        toolbar: [
+            [{"header": [1,2, false]}],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [{"list" :"ordered"}, {"list": "bullet"}],
+            ["link", "image"],
+            ["ckean"]
+        ]
+    };
+
+    const formats =[
+        "header", "bold", "italic", "underline", "strike", "blockquote", "list", "bullet", "indent", "link", "image"
+    ];
 
 
 
@@ -44,6 +61,9 @@ function handleSubmit(event){
                     
                 </div>
             </form>
+        <div class = "container inputFormContainer">
+            <ReactQuill className = "inputForm" value = {props.content} modules = {modules} formats = {formats} />
+            </div>
 </div>
 
     </div>
