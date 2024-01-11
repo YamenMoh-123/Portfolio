@@ -2,8 +2,15 @@ import mongoose from "mongoose";
 
 
 const userSchema = new mongoose.Schema({
-    id: Number,
-    name: {
+    userEmail: {
+        type: String,
+        required: true
+    },
+    userLastName: {
+        type: String,
+        required: true
+    },
+    userFirstName: {
         type: String,
         required: true
     },
@@ -15,11 +22,15 @@ const userSchema = new mongoose.Schema({
         type: Date,
         immutable: true,
         default: ()=> new Date()
+    },
+    authenticated: {
+        type: Boolean,
+        default: ()=> false  
     }
 
 });
 
 
-let User = mongoose.model('Users', UserSchema);
+let User = mongoose.model('Users', userSchema);
 export default User;
 

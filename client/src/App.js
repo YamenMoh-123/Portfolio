@@ -6,6 +6,8 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import BlogItem from "./components/page/BlogItem.jsx";
 import Book from "./components/page/Book.jsx";
 import Authenticate from "./components/page/Authenticate.jsx";
+import SignUp from "./components/page/SignUp.jsx";
+
 
 
 
@@ -23,7 +25,9 @@ function App() {
           <Route path = "/blog/:id" element= {<BlogItem/>}/>
           <Route path = "/books" element = {<Book/>}/>
           <Route path = "/authenticate" element = {<Authenticate/>} />
+          <Route path = "/signUp" element = {<SignUp />} />
           {/*<Route path = "*" element = {noPage}/>*/}
+          {/*<Route path = "/secret" element = {noPage}/>*/}
             
     </Routes>
     </Router> 

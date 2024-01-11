@@ -6,7 +6,9 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    content: String
+    content: String,
+    rating: Number,
+    order: Number
 
 });
 
