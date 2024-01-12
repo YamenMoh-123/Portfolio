@@ -9,7 +9,6 @@ function NewBlog() {
     var isEdit = false;
     
     const {id} = useParams();
-    {console.log(id)}
     if(typeof id !== 'undefined'){
         isEdit = true;
     }
@@ -18,15 +17,16 @@ function NewBlog() {
 
     const[title, setTitle] = useState('');
     const[content, setContent] = useState('');
+    const[imageURL, setImageURL] = useState('');
 
-    {console.log(isEdit)}
 
     async function setIntitialData(){
         if(isEdit){
         const currentData = await axios.get(`/blog/${id}`);
-        {console.log(currentData.data)}
+       
         setTitle(currentData.data.title);
         setContent(currentData.data.content);
+        setImageURL(currentData.data.image)
         }
     }
     useEffect(()=>{
@@ -38,7 +38,7 @@ function NewBlog() {
         event.preventDefault();    
     if(!isEdit){
         try{
-            await axios.post("/blog/create", {title: title, content: content}).then(navigate("/blog"));   
+            await axios.post("/blog/create", {title: title, content: content, image: imageURL}).then(navigate("/blog"));   
         }
         catch(err){
             console.log(err);
@@ -46,7 +46,7 @@ function NewBlog() {
     }
     else{
         try{
-            await axios.patch(`/blog/edit/${id}`, {title: title, content: content}).then(navigate("/blog"));
+            await axios.patch(`/blog/edit/${id}`, {title: title, content: content, image: imageURL}).then(navigate("/blog"));
         }
         catch(err){
 
@@ -63,20 +63,16 @@ function NewBlog() {
         setContent(event);
     }
 
+    async function handleImage(event){
+        setImageURL(event);
+    }
 
   return (
-    <div>
-    {/*for for input, submit cancel, navigation,
-        value = {form, firstname}
-        on change = ()=>{
-            setForm({
-                ...form, first name: e target val
-            })
-        }
-    */ }
+    <div class = "back">
+    
 
     <Layout>
-    <BlogCreate title = {title} content = {content} onTitle = {handleTitle} onContent = {handleContent} onSubmit = {handleSubmit}/>
+    <BlogCreate title = {title} content = {content} image = {imageURL} onTitle = {handleTitle} onContent = {handleContent} onImage ={handleImage} onSubmit = {handleSubmit}/>
     </Layout>
 
 

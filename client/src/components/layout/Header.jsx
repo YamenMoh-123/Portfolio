@@ -1,8 +1,14 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../AuthProvider';
 
 function Header() {
   let navigate = useNavigate();
+
+
+  const {isLogged, logOut} = useContext(AuthContext)
+  
+  
 
   return (
     <div>
@@ -18,7 +24,17 @@ function Header() {
      
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn" style = {{fontSize:"18px", borderRadius:"9px", width: "95px", background: "rgb(40, 75, 99)", color: "white"}} onClick = {()=>{navigate("/authenticate")}}>Login</button>
+        {isLogged?(
+
+        <button type="button" class="btn" 
+        style = {{fontSize:"18px", borderRadius:"9px", width: "100px", background: "rgb(40, 75, 99)", color: "white"}} 
+        onClick = {logOut}>Sign Out</button>
+
+        ): (
+        <button type="button" class="btn" 
+        style = {{fontSize:"18px", borderRadius:"9px", width: "100px", background: "rgb(40, 75, 99)", color: "white"}} 
+        onClick = {()=>{navigate("/authenticate")}}>Sign In</button>
+        )}
       </div>
     </header>
   </div>

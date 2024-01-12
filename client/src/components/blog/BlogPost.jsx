@@ -3,6 +3,7 @@ import "./blogStyle.css";
 
 function BlogPost(props) {
 	var curClass = 'R'
+	var curImage = 'https://picsum.photos/1000/1000'
 	if(props.index %2 == 0){
 		var curClass = 'R'
 	}
@@ -13,13 +14,20 @@ function BlogPost(props) {
     var curId = 0;
     const input = props.value;
     var time = (input.createdAt);
+
     if (typeof time !== 'undefined'){
         time = time.slice(0,10);
     }
     if (typeof props.value !== 'undefined'){
         curId = props.value._id;
-        
     }
+
+	
+	if (typeof props.value.image !== 'undefined'){
+		curImage = props.value.image;
+	}
+
+
 
      function handleDelete(){
         props.onDelete(curId);
@@ -43,7 +51,8 @@ function BlogPost(props) {
 		
 		<article className= {`postcard dark blue position-${curClass}`}>
 			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title"  onClick = {handleExpand} />
+
+				<img class="postcard__img" src={`${curImage}`} style = {{maxWidth: "25%", maxHeight: 300}} alt="Image Title"  onClick = {handleExpand} />
 			</a>
 			<div class="postcard__text">
 				<h1 class="postcard__title blue">{input.title}<a href="#"></a></h1>
@@ -54,7 +63,10 @@ function BlogPost(props) {
 				</div>
 				<div class="postcard__bar"></div>
 				<div class="postcard__preview-txt">{input.content}</div>
+				{props.permitted ? 
+
 				<ul class="postcard__tagbox">
+					
 					<li class="tag__item" onClick = {handleDelete}>
                         <i class="fas fa-thin fa-trash mr-2"></i>Delete
                     </li>
@@ -62,7 +74,10 @@ function BlogPost(props) {
 					<li class="tag__item play blue" onClick = {handleEdit}>
 		                <i class="fas fa-pen-to-square mr-2"></i>Edit
 					</li>
+
 				</ul>
+				:
+				<></>}
 			</div>
 		</article>
 

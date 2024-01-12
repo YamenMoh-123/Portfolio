@@ -70,7 +70,7 @@ app.post("/token", (req,res)=>{
     })
 });
 
-app.delete("/delete", (req,res)=>{
+app.delete("/delete", (req,res)=>{ // remove
     // remove current refresh token
 })
 
@@ -118,6 +118,7 @@ app.get("/blog/:id", async (req,res)=>{
         const curId = req.params.id;
         const currentBlog = await Blog.findById(curId);
         res.send(currentBlog);
+        console.log(currentBlog);
     }
     catch(err){
         
@@ -145,7 +146,6 @@ app.post("/signUp", async (req,res)=>{
         console.log(err);
     }
     
-
 });
 
 app.post("/authenticate", async (req,res)=>{  // implement error catching ^
@@ -154,7 +154,7 @@ app.post("/authenticate", async (req,res)=>{  // implement error catching ^
 
     const userName = req.body.userName;
     const user = await User.findOne({userName: userName});
-    console.log(user);
+  
     
 
     const secret = process.env.B_SECRET;
@@ -204,15 +204,15 @@ catch(err){
 
 app.patch("/blog/edit/:id", async(req,res)=>{
     const curId = req.params.id;
-    console.log(req.params);
+  
     const data = req.body;
-    console.log("this is a patch");
+ 
     try{
-       // console.log(curId);
+       
         await Blog.findByIdAndUpdate(curId, {title: data.title, content: data.content});
         // CONFIRM BLOG CREATION AND DELETION
         
-        console.log("patched");
+    
     }
     catch(err){
         res.sendStatus(500);
@@ -223,7 +223,7 @@ app.patch("/blog/edit/:id", async(req,res)=>{
 
 app.post("/blog/create", async (req, res)=>{
     try{
-        console.log("this is a post");
+    
     const newPost = new Blog(req.body);
     await newPost.save();
     res.status(201).json(newPost);
@@ -245,7 +245,19 @@ function generateAccessToken(user){
     return jwt.sign(user, process.env.ACCESS_SECRET, {expiresIn: "15m"});
 }
 
+app.get("/authenticateToken", authenticateToken, async (req,res)=>{
+    try{
+        const currUser = req.user.user.userName;
+        const user = await User.findOne({userName: currUser});
+        const permit = user.authenticated;
+        res.json({permitted: permit});
 
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+});
 
 function authenticateToken(req, res, next){
     const authHeader = req.headers["authorization"];

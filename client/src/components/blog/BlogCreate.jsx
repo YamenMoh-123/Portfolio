@@ -37,12 +37,17 @@ function handleSubmit(event){
     props.onSubmit(event)
 }
 
+function handleImage(event){
+    props.onImage(event.target.value)
+}
+
+
   return (
     <div class = "blogCreate">
 <div class="container contact-form">
             
             <form method="post">
-                <h3>Submit a Blog Post</h3>
+                <h3 class = "text-white fw-bold rounded-4 py-2 mx-5" style = {{background: "rgb(60, 110, 113)"}}>Create Your Blog Post</h3>
                <div class="row" align="center">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -52,11 +57,15 @@ function handleSubmit(event){
                         <div class="form-group">
                             <textarea name="txtMsg" class="form-control" placeholder="Description *" style={{"width": "100%", "height": "150px"}} onChange = {handleContent} value = {props.content}></textarea>
                         </div>
+                        <div class="form-group">
+                            <input name="txtMsg" class="form-control" placeholder="Image URL" onChange = {handleImage} value = {props.image}></input>
+                        </div>
                     </div>
                         
                         <div class="form-group my-3 col-md-8" >
                             <input type="submit" name="btnSubmit" class="btnContact" value="Submit" onClick = {handleSubmit}/>
                         </div>
+                        
                     </div>
                     
                 </div>

@@ -1,16 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import BlogPost from '../blog/BlogPost';
 import axios from "axios";
 import Layout from "../layout/Layout";
 import {useNavigate } from "react-router-dom";
 import BlogHeader from '../blog/BlogHeader';
+import {AuthContext} from '../AuthProvider';
 import "./page.css"
 
 
 
 function Blog() {
     let navigate = useNavigate();
-    var [blogPost, setBlogs] = useState([{}]);
+    var [blogPost, setBlogs] = useState([{}]); // const
+
+    const {userPermitted} = useContext(AuthContext)
+    
 
     async function onLoad(){
         try{
@@ -63,10 +67,10 @@ function Blog() {
     <div class = "back">
         <Layout>
             
-        <BlogHeader handleClick = {handleClick}/>
+        <BlogHeader permitted = {userPermitted} handleClick = {handleClick}/>
         {blogPost.map((blog, index)=>{
           
-            return(<BlogPost key={index} index ={index} value = {blog} onDelete = {handleDelete} onExpand = {handleExpand} onEdit = {handleEdit}/>)
+            return(<BlogPost key={index} index ={index} value = {blog} permitted = {userPermitted} onDelete = {handleDelete} onExpand = {handleExpand} onEdit = {handleEdit}/>)
         })}
         </Layout>
 

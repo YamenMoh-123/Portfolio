@@ -1,17 +1,21 @@
 import React from 'react'
 import BlogExpanded from '../blog/BlogExpanded'
+import Layout from '../layout/Layout'
 
 function BlogItem() {
+
+  
+
+
+
   return (
-    <div>
+    <div class = "back">
+      <Layout>
         <BlogExpanded/>
         
-        {/*
-        basic expanded view from blog expanded viweing indivual, allow back navigation, window.refresh
-
     
-    
-    */}</div>
+      </Layout>
+    </div>
   )
 }
 

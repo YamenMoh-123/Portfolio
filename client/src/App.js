@@ -9,13 +9,14 @@ import Authenticate from "./components/page/Authenticate.jsx";
 import SignUp from "./components/page/SignUp.jsx";
 import Temp1 from "./components/page/Temp1.jsx";
 import Unauth from "./components/page/Unauth.jsx";
+import AuthProvider, {AuthContext} from "./components/AuthProvider.js";
 
 
 
 
 function App() {
   return (
-    
+    <AuthProvider>
     <div>
 
       <Router>
@@ -35,6 +36,7 @@ function App() {
     </Routes>
     </Router> 
     </div>
+    </AuthProvider>
     
   );
 }

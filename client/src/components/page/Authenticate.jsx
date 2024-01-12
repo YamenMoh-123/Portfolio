@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import SignIn from '../UserInput.jsx/SignInForm'
 import axios from "axios";
-import SignUp from './SignUp';
+import { AuthContext } from '../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 
 function Authenticate() {
 
-
-  //const [signIn, setSignIn] = useState(true);
-  
+  const {isLogged,userPermitted, logIn} = useContext(AuthContext)
   let navigate = useNavigate();
 
   const [userName, setUserName] = useState('');
@@ -32,10 +30,11 @@ function Authenticate() {
     
     const answer = await axios.post("/authenticate", data);
     const {accessToken, refreshToken} = answer.data;
-    {console.log(accessToken)}
+  
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+    logIn(accessToken);
     
     navigate("/");
 

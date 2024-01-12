@@ -7,6 +7,7 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    image: String,
     content: String,
     createdAt:{
         type: Date,
