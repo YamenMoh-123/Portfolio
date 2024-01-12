@@ -12,6 +12,10 @@
 }
 
 
+.back{
+  background: linear-gradient(to right, rgb(22,22,22), rgb(15,15,15))
+}
+
 .blogCreate{
   body{
     background: -webkit-linear-gradient(left, #0072ff, #00c6ff);

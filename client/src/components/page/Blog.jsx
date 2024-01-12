@@ -4,6 +4,7 @@ import axios from "axios";
 import Layout from "../layout/Layout";
 import {useNavigate } from "react-router-dom";
 import BlogHeader from '../blog/BlogHeader';
+import "./page.css"
 
 
 
@@ -59,7 +60,7 @@ function Blog() {
 
 
   return (
-    <div>
+    <div class = "back">
         <Layout>
             
         <BlogHeader handleClick = {handleClick}/>

@@ -18,7 +18,7 @@ function Header() {
      
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-primary" style = {{fontSize:"18px", borderRadius:"9px", width: "95px"}} onClick = {()=>{navigate("/authenticate")}}>Login</button>
+        <button type="button" class="btn" style = {{fontSize:"18px", borderRadius:"9px", width: "95px", background: "rgb(40, 75, 99)", color: "white"}} onClick = {()=>{navigate("/authenticate")}}>Login</button>
       </div>
     </header>
   </div>

@@ -38,8 +38,8 @@ function BlogPost(props) {
   return (
 	
     <div class = "blogPost">
-    <section class="light">
-	<div class="container py-4  ">
+    <section class="back">
+	<div class="container py-4">
 		
 		<article className= {`postcard dark blue position-${curClass}`}>
 			<a class="postcard__img_link" href="#">

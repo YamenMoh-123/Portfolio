@@ -30,8 +30,10 @@ const saltrounds = 10;
 
 let refreshTokens = [];  // offload to database
 
-app.get("/test", authenticateToken, (req, res)=>{  // test this when have input
-    res.json("FEBU");
+app.get("/test",authenticateToken,(req, res)=>{  // test this when have input
+    console.log("MINE");
+    res.json("FEBU");  // retuyrning database data
+    
 });
 
 app.post("/test/login",  (req,res)=>{
@@ -97,10 +99,22 @@ app.get("/blog/all", async (req,res)=>{
     }
 });
 
+app.get("/book/all", async (req,res)=>{
+
+
+    try{
+         const result = await Book.countDocuments()
+         const data = {bookCount: result};
+         res.json(data);
+    }
+    catch(err){
+        //
+    }
+});
+
 
 app.get("/blog/:id", async (req,res)=>{
     try{
-        
         const curId = req.params.id;
         const currentBlog = await Blog.findById(curId);
         res.send(currentBlog);
@@ -120,26 +134,29 @@ app.post("/signUp", async (req,res)=>{
 
         const hashedPWD = await bcryptjs.hash(pwdDB, saltrounds)
         
-        const data = {userName: req.body.userName, password: hashedPWD};
+        const data = {firstName: req.body.firstName, lastName: req.body.lastName, userName: req.body.userName, password: hashedPWD};
         const currentUser = new User(data);
         await currentUser.save();
+        res.sendStatus(200);
     }
     catch(err){
+        res.status(400)
+        res.json(err);
         console.log(err);
     }
-    res.send(true);
+    
 
 });
 
-app.post("/authenticate", async (req,res)=>{
+app.post("/authenticate", async (req,res)=>{  // implement error catching ^
+
+    try{
 
     const userName = req.body.userName;
     const user = await User.findOne({userName: userName});
+    console.log(user);
     
-    if(!user){
-        res.status(404);
-    }
-    
+
     const secret = process.env.B_SECRET;
     const pwdUser = secret + req.body.password;
     const pwdDB = user.password;
@@ -151,11 +168,36 @@ app.post("/authenticate", async (req,res)=>{
         }
         if(match){
             console.log("match");
+            const username = req.body;
+            const user = {user:username};
+            const accessToken = generateAccessToken(user);
+            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN);
+
+            refreshTokens.push(refreshToken);
+            //res.sendStatus(200);
+            res.json({accessToken: accessToken, refreshToken: refreshToken});
+
+            
+
         }
         else{
             console.log("no match");
         }
-    })
+    });
+}
+
+catch(err){
+    res.status(400);
+    console.log(err);
+}
+
+
+
+
+
+
+
+
 });
 
 
@@ -200,7 +242,7 @@ app.delete("/blog/:id/delete", async (req,res)=>{
 });
 
 function generateAccessToken(user){
-    return jwt.sign(user, process.env.ACCESS_SECRET, {expires: "15m"});
+    return jwt.sign(user, process.env.ACCESS_SECRET, {expiresIn: "15m"});
 }
 
 
@@ -208,8 +250,11 @@ function generateAccessToken(user){
 function authenticateToken(req, res, next){
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
+    
     if (token==null) {
+        console.log("B HUIGFERVBU");
         return res.sendStatus(401);
+        
     }
 
     jwt.verify(token,process.env.ACCESS_SECRET, (err, user) =>{

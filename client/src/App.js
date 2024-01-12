@@ -7,6 +7,8 @@ import BlogItem from "./components/page/BlogItem.jsx";
 import Book from "./components/page/Book.jsx";
 import Authenticate from "./components/page/Authenticate.jsx";
 import SignUp from "./components/page/SignUp.jsx";
+import Temp1 from "./components/page/Temp1.jsx";
+import Unauth from "./components/page/Unauth.jsx";
 
 
 
@@ -27,7 +29,8 @@ function App() {
           <Route path = "/authenticate" element = {<Authenticate/>} />
           <Route path = "/signUp" element = {<SignUp />} />
           {/*<Route path = "*" element = {noPage}/>*/}
-          {/*<Route path = "/secret" element = {noPage}/>*/}
+          <Route path = "/test" element = {<Temp1 />}/>
+          <Route path = "/question" element = {<Unauth />}  />
             
     </Routes>
     </Router> 
