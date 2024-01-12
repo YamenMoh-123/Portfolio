@@ -1,0 +1,27 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #00102e;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgb(40, 75, 99), rgba(60, 110, 113, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgb(40, 75, 99), rgba(60, 110, 113,1))
+    }
+
+    .gradient-customS{
+        background: linear-gradient(to right, rgb(60, 110, 113), rgba(40, 75, 99,1))
+    }
+
+
+.form-black{
+    background: rgb(199, 198, 202);
+}
+
+.form-outlineF{
+    display:flex;
+}
+
+.back{
+    background: linear-gradient(to right, rgb(22,22,22), rgb(15,15,15))
+}

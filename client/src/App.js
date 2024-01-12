@@ -10,6 +10,7 @@ import SignUp from "./components/page/SignUp.jsx";
 import Temp1 from "./components/page/Temp1.jsx";
 import Unauth from "./components/page/Unauth.jsx";
 import AuthProvider, {AuthContext} from "./components/AuthProvider.js";
+import AddBook from "./components/page/AddBook.jsx";
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path = "/books" element = {<Book/>}/>
           <Route path = "/authenticate" element = {<Authenticate/>} />
           <Route path = "/signUp" element = {<SignUp />} />
+          <Route path = "/addbook" element = {<AddBook/>}/>
           {/*<Route path = "*" element = {noPage}/>*/}
           <Route path = "/test" element = {<Temp1 />}/>
           <Route path = "/question" element = {<Unauth />}  />

@@ -11,6 +11,10 @@ import { userInfo } from "os";
 import { error } from "console";
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken";
+import axios from "axios";
+
+const API_KEY = process.env.G_API_KEY;
+const BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
 
 const pwd = process.env.MONGO_PWD;
 const uri = `mongodb+srv://yamenmoh250:${pwd}@portfoliodb.50nadqe.mongodb.net/?retryWrites=true&w=majority`;
@@ -29,6 +33,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const saltrounds = 10;
 
 let refreshTokens = [];  // offload to database
+
+
+app.get("/searchBook", async (req,res)=>{
+    
+    try{
+        
+        const response = await axios.get(`${BOOKS_API}`, {
+            params: {
+                q: req.query.q,
+                key: API_KEY
+            }
+        });
+        console.log("FE");
+        console.log(response.data.items[0].volumeInfo.imageLinks.smallThumbnail);
+        const data = {image: response.data.items[0].volumeInfo.imageLinks.smallThumbnail}
+        res.json(data);
+    }
+    catch(err){
+        console.log(err);
+    }
+});
+
 
 app.get("/test",authenticateToken,(req, res)=>{  // test this when have input
     console.log("MINE");
