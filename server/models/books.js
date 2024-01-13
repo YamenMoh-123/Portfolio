@@ -7,8 +7,9 @@ const bookSchema = new mongoose.Schema({
         required: true,
     },
     content: String,
-    rating: Number,
-    order: Number
+    score: Number,
+    order: Number,
+    image: String
 
 });
 

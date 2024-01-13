@@ -1,17 +1,24 @@
 import React from 'react'
 
-function BookItem() {
-  return (
-    <div>
+function BookItem(props) {
+  console.log(props.value);
+  const imageURL = props.value.image;
+  const title = props.value.title;
+  const score = props.value.score;
 
-<div class="card" style={{width: "18rem"}}>
-  <img src="..." class="card-img-top" alt="..."></img>
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  return (
+
+  
+
+  <div class="card col-lg-2 mx-2">
+    <img src={imageURL} class="card-img-top" style = {{height: "225px"}} alt="..."></img>
+    <div class="card-body">
+    <p class="card-text">{title}</p>
+    <p class="card-text">Rating: {score}</p>
   </div>
 </div>
 
-    </div>
+    
   )
 }
 

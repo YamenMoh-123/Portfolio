@@ -12,6 +12,7 @@ import { error } from "console";
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken";
 import axios from "axios";
+import Book from "./models/books.js";
 
 const API_KEY = process.env.G_API_KEY;
 const BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
@@ -34,24 +35,40 @@ const saltrounds = 10;
 
 let refreshTokens = [];  // offload to database
 
+app.get("/book", async (req, res)=>{
 
-app.get("/searchBook", async (req,res)=>{
-    
     try{
-        
-        const response = await axios.get(`${BOOKS_API}`, {
-            params: {
-                q: req.query.q,
-                key: API_KEY
-            }
-        });
-        console.log("FE");
-        console.log(response.data.items[0].volumeInfo.imageLinks.smallThumbnail);
-        const data = {image: response.data.items[0].volumeInfo.imageLinks.smallThumbnail}
-        res.json(data);
+        const books = await Book.find();
+        res.json(books);
     }
     catch(err){
         console.log(err);
+    }
+});
+
+app.get("/searchBook", async (req,res)=>{
+    console.log(req.query);
+    try{
+        const response = await axios.get(`${BOOKS_API}`, {
+            params: {
+                q: req.query.title, // .title
+                key: API_KEY
+            }
+        });
+
+       // console.log(response.data.items[0].volumeInfo.imageLinks.smallThumbnail);
+        const data = {
+            title: req.query.title,
+            score: req.query.score,
+            order: req.query.order, 
+            image: response.data.items[0].volumeInfo.imageLinks.smallThumbnail};
+        
+        const currentBook = new Book(data);
+        await currentBook.save();
+        //res.json(data);
+    }
+    catch(err){
+        //console.log(err);
     }
 });
 
@@ -144,7 +161,6 @@ app.get("/blog/:id", async (req,res)=>{
         const curId = req.params.id;
         const currentBlog = await Blog.findById(curId);
         res.send(currentBlog);
-        console.log(currentBlog);
     }
     catch(err){
         
@@ -268,7 +284,7 @@ app.delete("/blog/:id/delete", async (req,res)=>{
 });
 
 function generateAccessToken(user){
-    return jwt.sign(user, process.env.ACCESS_SECRET, {expiresIn: "15m"});
+    return jwt.sign(user, process.env.ACCESS_SECRET, {expiresIn: "1000m"});
 }
 
 app.get("/authenticateToken", authenticateToken, async (req,res)=>{
@@ -290,7 +306,7 @@ function authenticateToken(req, res, next){
     const token = authHeader && authHeader.split(" ")[1];
     
     if (token==null) {
-        console.log("B HUIGFERVBU");
+    
         return res.sendStatus(401);
         
     }
