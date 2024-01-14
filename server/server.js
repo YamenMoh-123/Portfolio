@@ -16,6 +16,9 @@ import Book from "./models/books.js";
 import path from "path";
 import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const API_KEY = process.env.G_API_KEY;
 const BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
 
