@@ -13,6 +13,7 @@ import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import Book from "./models/books.js";
+import path from "path";
 
 const API_KEY = process.env.G_API_KEY;
 const BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
@@ -341,9 +342,14 @@ function authenticateToken(req, res, next){
     })
 }
 
+if(process.env.NODE_ENV){
+    app.use(express.static("client/build"));
+    app.get("*", (req,res)=>{
+        res.sendFile(path.resolve(__dirname,"client", "build", "index.html"));
+    });
+}
 
 
-
-app.listen(4000 || process.env.PORT, ()=>{
+app.listen(process.env.PORT || 4000, ()=>{
     console.log("Running on port 4000");
 });
