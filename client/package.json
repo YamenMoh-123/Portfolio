@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "proxy": "https://stark-atoll-65221-89a2bde51414.herokuapp.com/",
+
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
