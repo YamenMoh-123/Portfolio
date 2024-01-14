@@ -41,7 +41,7 @@ function NewBlog() {
             await axios.post("/blog/create", {title: title, content: content, image: imageURL}).then(navigate("/blog"));   
         }
         catch(err){
-            console.log(err);
+            //
         }
     }
     else{

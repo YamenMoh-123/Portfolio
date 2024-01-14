@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./blogStyle.css";
 
 function BlogPost(props) {
 	var curClass = 'R'
 	var curImage = 'https://picsum.photos/1000/1000'
+	var content = ""
 	if(props.index %2 == 0){
 		var curClass = 'R'
 	}
@@ -13,6 +14,7 @@ function BlogPost(props) {
 	
     var curId = 0;
     const input = props.value;
+	
     var time = (input.createdAt);
 
     if (typeof time !== 'undefined'){
@@ -22,10 +24,14 @@ function BlogPost(props) {
         curId = props.value._id;
     }
 
-	
 	if (typeof props.value.image !== 'undefined'){
 		curImage = props.value.image;
 	}
+
+	if (typeof props.value.content !== 'undefined'){
+		 content = (props.value.content).slice(0,100);
+	}
+	
 
 
 
@@ -62,7 +68,7 @@ function BlogPost(props) {
 					</time>
 				</div>
 				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">{input.content}</div>
+				<div class="postcard__preview-txt">{content}</div>
 				{props.permitted ? 
 
 				<ul class="postcard__tagbox">

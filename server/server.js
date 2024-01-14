@@ -35,19 +35,41 @@ const saltrounds = 10;
 
 let refreshTokens = [];  // offload to database
 
+
+
 app.get("/book", async (req, res)=>{
+    var onQuery = '';
+
+    if(req.query.select == '1'){
+        onQuery = "order"
+    }
+    else if(req.query.select == "2"){
+        onQuery = "-order"
+    }
+    else if(req.query.select == "3"){
+        onQuery = "score"
+    }
+    else if(req.query.select == "4"){
+        onQuery = "-score"
+    }
 
     try{
+        
+       if(onQuery != ''){
+        const books = await Book.find().sort(onQuery);
+        res.json(books);
+       }
+       else{
         const books = await Book.find();
         res.json(books);
+       }
     }
     catch(err){
-        console.log(err);
+       //
     }
 });
 
 app.get("/searchBook", async (req,res)=>{
-    console.log(req.query);
     try{
         const response = await axios.get(`${BOOKS_API}`, {
             params: {
@@ -56,7 +78,6 @@ app.get("/searchBook", async (req,res)=>{
             }
         });
 
-       // console.log(response.data.items[0].volumeInfo.imageLinks.smallThumbnail);
         const data = {
             title: req.query.title,
             score: req.query.score,
@@ -65,16 +86,16 @@ app.get("/searchBook", async (req,res)=>{
         
         const currentBook = new Book(data);
         await currentBook.save();
-        //res.json(data);
+        //
     }
     catch(err){
-        //console.log(err);
+        //
     }
 });
 
 
 app.get("/test",authenticateToken,(req, res)=>{  // test this when have input
-    console.log("MINE");
+    
     res.json("FEBU");  // retuyrning database data
     
 });
@@ -102,7 +123,7 @@ app.post("/token", (req,res)=>{
     }
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err,user)=>{
         if(err){
-            console.log(err);
+            //
         }
         const accessToken = generateAccessToken({name: user.name});
         res.cookie("token", accessToken, {
@@ -125,7 +146,7 @@ app.get("/blog", async (req,res) => {
         res.json(posts);
     }
     catch(err){
-        console.log(err);
+        //
     }
 });
 
@@ -185,7 +206,7 @@ app.post("/signUp", async (req,res)=>{
     catch(err){
         res.status(400)
         res.json(err);
-        console.log(err);
+        //
     }
     
 });
@@ -209,7 +230,7 @@ app.post("/authenticate", async (req,res)=>{  // implement error catching ^
 
         }
         if(match){
-            console.log("match");
+            //.log("match");
             const username = req.body;
             const user = {user:username};
             const accessToken = generateAccessToken(user);
@@ -223,14 +244,14 @@ app.post("/authenticate", async (req,res)=>{  // implement error catching ^
 
         }
         else{
-            console.log("no match");
+            //
         }
     });
 }
 
 catch(err){
     res.status(400);
-    console.log(err);
+    //
 }
 
 
@@ -296,7 +317,7 @@ app.get("/authenticateToken", authenticateToken, async (req,res)=>{
 
     }
     catch(err){
-        console.log(err);
+        //
     }
     
 });
@@ -323,6 +344,6 @@ function authenticateToken(req, res, next){
 
 
 
-app.listen(4000, ()=>{
+app.listen(4000 || process.env.PORT, ()=>{
     console.log("Running on port 4000");
 });

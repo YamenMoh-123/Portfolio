@@ -1,16 +1,11 @@
-//creation component for newblog.jsx and editblog.jsx
-
 import React from 'react'
 import "./blogStyle.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
 
-
-
-
 function BlogCreate(props) {
 
-    const modules = {
+    const modules = {  // values for react-quill
         toolbar: [
             [{"header": [1,2, false]}],
             ["bold", "italic", "underline", "strike", "blockquote"],
@@ -26,7 +21,7 @@ function BlogCreate(props) {
 
 
 
-function handleTitle(event){
+function handleTitle(event){  // handleX used to call props functions
     props.onTitle(event.target.value);
 }
 

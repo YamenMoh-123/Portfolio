@@ -1,5 +1,3 @@
-//single blog for blogitem.jsx page
-
 import React, {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom";
 import axios from "axios";
@@ -8,14 +6,14 @@ import axios from "axios";
 function BlogExpanded() {
     const [post, setPost] = useState('');
    
-    var imageUrl = 'https://picsum.photos/1000/1000'
+    var imageUrl = 'https://picsum.photos/1000/1000' // default image url if none specified
     
 
 
 
     const{id} = useParams();
 
-    async function getBlog(){
+    async function getBlog(){ 
         const result = await axios.get(`/blog/${id}`)
         setPost(result.data);
     }

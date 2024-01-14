@@ -13,15 +13,24 @@ function Overview() {
   const [postCount, setPostCount] = useState(0);
   const [bookCount, setBookCount] = useState(0); // to set after database creation
 
-  async function countPosts(){
-    //const countBlog = await axios.get("/blog/all");
-    //const bookCount = await axios.get("/book/all");
-   // setPostCount(postCount.data.postCount);
-    //setBookCount(bookCount.data.bookCount);
-    
+  async function countItems(){
+
+    try{
+
+    const countBlog = await axios.get("/blog/all");
+    const bookCount = await axios.get("/book/all");
+    setPostCount(countBlog.data.postCount);
+    setBookCount(bookCount.data.bookCount);
+    }
+    catch(err){
+      //
+    }
    
   }
-  countPosts();
+  useEffect(()=>{
+    countItems();
+  }, [])
+  
 
 
 

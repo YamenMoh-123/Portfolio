@@ -23,6 +23,7 @@ function NewBook(props) {
 
     function handleSubmit(event){
       props.onSubmit(event);
+      navigate("/books");
     }
     
 

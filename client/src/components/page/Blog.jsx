@@ -24,7 +24,7 @@ function Blog() {
            setBlogs(result.data);
             }
             catch (err){
-                console.log(err);
+                //
             }
     }
 
@@ -41,7 +41,7 @@ function Blog() {
             );
         }
         catch(err){
-            {console.log(err)}
+            //
         }
     }
 
@@ -69,8 +69,11 @@ function Blog() {
             
         <BlogHeader permitted = {userPermitted} handleClick = {handleClick}/>
         {blogPost.map((blog, index)=>{
+           
+                return(<BlogPost key={index} index ={index} value = {blog} permitted = {userPermitted} onDelete = {handleDelete} onExpand = {handleExpand} onEdit = {handleEdit}/>)
+            
           
-            return(<BlogPost key={index} index ={index} value = {blog} permitted = {userPermitted} onDelete = {handleDelete} onExpand = {handleExpand} onEdit = {handleEdit}/>)
+            
         })}
         </Layout>
 

@@ -53,8 +53,8 @@ function SignUp() {
           setErrorMessage("Please enter a unique username");
         }
         
-        console.log("User Creation Failed");
-        {console.log(err)}//
+        
+        //
       }
     }
   }

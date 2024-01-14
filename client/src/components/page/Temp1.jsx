@@ -10,7 +10,6 @@ function Temp1() {
     //await axios.get("/test");
   } 
   k();
-  {console.log(result);}
     
   return (
     <div>temp</div>
